@@ -1,0 +1,84 @@
+<div class="main-body">
+    <div class="row">
+      <div class="d-flex flex-column align-items-center text-center">
+        <div *ngIf="user">
+          <img [src]="user.avatarUrl || defaultAvatarUrl" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+          <div class="mt-3">
+            <h4>{{ user.name }}</h4>
+            <!-- <p class="text-muted font-size-sm">{{ user.address }}</p> -->
+          </div>
+        </div>
+        
+      </div>
+  
+      <div class="card" [formGroup]="infoChangeForm">
+        <div class="card-body">
+          
+          <div class="row mb-3">
+            <div class="col-sm-3"><h6 class="mb-0">Full Name</h6></div>
+            <div class="col-sm-9 text-secondary">
+              <input type="text" class="form-control" formControlName="name">
+              <div class="error" *ngIf="infoChangeForm.get('name')!.invalid && (infoChangeForm.get('name')!.touched || infoChangeForm.get('name')!.dirty)">
+                <small *ngIf="infoChangeForm.get('name')!.errors?.['required']">Name is required.</small>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row mb-3">
+            <div class="col-sm-3"><h6 class="mb-0">Email</h6></div>
+            <div class="col-sm-9 text-secondary">
+              <input type="text" class="form-control" formControlName="email">
+              <div class="error" *ngIf="infoChangeForm.get('email')!.invalid && (infoChangeForm.get('email')!.touched || infoChangeForm.get('email')!.dirty)">
+                <small *ngIf="infoChangeForm.get('email')!.errors?.['required']">Email is required.</small>
+                <small *ngIf="infoChangeForm.get('email')!.errors?.['email']">Enter a valid email.</small>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row mb-3">
+            <div class="col-sm-3"><h6 class="mb-0">Phone</h6></div>
+            <div class="col-sm-9 text-secondary">
+              <input type="text" class="form-control" formControlName="phone">
+              <div class="error" *ngIf="infoChangeForm.get('phone')!.invalid && (infoChangeForm.get('phone')!.touched || infoChangeForm.get('phone')!.dirty)">
+                <small *ngIf="infoChangeForm.get('phone')!.errors?.['required']">Phone number is required.</small>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row mb-3">
+            <div class="col-sm-3"><h6 class="mb-0">Address</h6></div>
+            <div class="col-sm-9 text-secondary">
+              <input type="text" class="form-control" formControlName="address">
+              <div class="error" *ngIf="infoChangeForm.get('address')!.invalid && (infoChangeForm.get('address')!.touched || infoChangeForm.get('address')!.dirty)">
+                <small *ngIf="infoChangeForm.get('address')!.errors?.['required']">Address is required.</small>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4 text-secondary">
+              <input type="button" class="btn btn-primary px-4" value="Save Changes" (click)="saveChanges()">
+            </div>
+            <div class="col-sm-4 text-secondary">
+              <input type="button" class="btn btn-primary px-4" value="Change password" (click)="toggleModal()">
+            </div>
+  
+            <app-modal-change-pass
+              [isOpen]="showModal"
+              (closeModal)="toggleModal()"
+              title="Change password">
+            </app-modal-change-pass>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="alert success" *ngIf="formSubmitted && isSuccess">
+      Info has been changed successfully 😊!!!
+    </div>
+  
+    <div class="alert fail" *ngIf="formSubmitted && !isSuccess">
+      Fail to change info !!!
+    </div>  
+  </div>

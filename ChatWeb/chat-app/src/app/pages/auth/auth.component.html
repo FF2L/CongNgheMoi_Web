@@ -1,0 +1,107 @@
+<div class="parent" *ngIf="!isForgotPasswordRoute && !isChangePasswordRoute ">
+  <div class="container">
+    <input type="checkbox" id="flip">
+    <div class="cover">
+      <div class="front">
+        <img class="frontImg p-4" src="assets/frontImg.jpg" alt="">
+      </div>
+      <div class="back">
+        <img class="backImg p-3" src="assets/backImg.avif" alt="">
+      </div>
+    </div>
+    <div class="forms">
+        <div class="form-content">
+          <div class="login-form">
+            <div class="title">Login</div>
+          <form action="#" [formGroup]="loginForm">
+            <div class="input-boxes">
+              <div class="box-container">
+                <div class="input-box">
+                  <i class="fa-regular fa-envelope"></i>
+                  <input type="email" formControlName="email" placeholder="Email"> 
+                </div>
+                <div class="error">
+                  <small *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
+                    <span *ngIf="loginForm.controls['email'].errors?.['required']">Email is required</span>
+                    <span *ngIf="loginForm.controls['email'].errors?.['email']">Enter a valid email</span>
+                  </small>
+                </div>
+              </div>
+              <div class="box-container">
+                <div class="input-box">
+                  <i class="fa-regular fa-lock"></i>
+                  <input type="password" formControlName="password" placeholder="Password">               
+                </div>
+                <div class="error">
+                  <small *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
+                    <span *ngIf="loginForm.controls['password'].errors?.['required']">Password is required</span>
+                    <span *ngIf="loginForm.controls['password'].errors?.['minlength']">Password must be at least 6 characters</span>
+                  </small>
+                </div>  
+              </div>
+              <div class="form-footer">
+                <div class="forgotpass text"><a (click)="onForgotPassWord()">Forgot password?</a></div>
+                <div class="form-check">
+                  <input class="form-check-input text" type="checkbox" id="autoSizingCheck2">
+                  <label class="form-check-label " for="autoSizingCheck2">
+                    Remember me
+                  </label>
+                </div>
+              </div>
+              <div class="button input-box">
+                <input type="button" value="Sumbit" (click)="onLogin()">
+              </div>
+              <div class="text sign-up-text">Don't have an account? <label for="flip">Sigup now</label></div>
+            </div>
+        </form>
+      </div>
+        <div class="signup-form">
+          <div class="title">Signup</div>
+        <form action="#" [formGroup]="registerForm">
+            <div class="input-boxes">
+              <div class="box-container">
+                <div class="input-box">
+                  <input type="text" formControlName="name" placeholder="Enter your name">                 
+                </div>
+                <div class="error">
+                  <small *ngIf="registerForm.controls['name'].invalid && registerForm.controls['name'].touched">
+                    <span *ngIf="registerForm.controls['name'].errors?.['required']">Name is required</span>
+                  </small>
+                </div>
+              </div>
+              <div class="box-container">
+                <div class="input-box">
+                  <input type="email" formControlName="email" placeholder="Enter your email">
+                </div> 
+                <div class="error">
+                  <small *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched">
+                    <span *ngIf="registerForm.controls['email'].errors?.['required']">Email is required</span>
+                    <span *ngIf="registerForm.controls['email'].errors?.['email']">Enter a valid email</span>
+                  </small>
+                </div>
+              </div>
+              <div class="box-container">
+                <div class="input-box">
+                  <input type="password" formControlName="password" placeholder="Enter your password">
+                </div>
+                <div class="error">
+                  <small *ngIf="registerForm.controls['password'].invalid && registerForm.controls['password'].touched">
+                    <span *ngIf="registerForm.controls['password'].errors?.['required']">Password is required</span>
+                    <span *ngIf="registerForm.controls['password'].errors?.['minlength']">Password must be at least 6 characters</span>
+                  </small>
+                </div>
+              </div>
+              <div class="button input-box">
+                <input type="button" value="Sumbit" (click)="onRegister()">
+              </div>
+              <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label></div>
+            </div>
+      </form>
+    </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<router-outlet *ngIf="isForgotPasswordRoute"></router-outlet>
+<router-outlet *ngIf="isChangePasswordRoute"></router-outlet>

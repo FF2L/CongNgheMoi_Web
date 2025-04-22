@@ -1,0 +1,46 @@
+
+<div class="parent">
+    <div class="container">
+        <div div class="form-content">
+          <div class="title">Change Password</div>
+          <form (ngSubmit)="onChange()" [formGroup]="changePassForm">
+            <div class="input-boxes">
+              <div class="box-container">
+                <div class="input-box">
+                    <i class="fa-solid fa-lock"></i>
+                  <input type="password" formControlName="password" placeholder="Enter your new password">
+                </div>
+                <div class="error">
+                    <small *ngIf="changePassForm.controls['password'].invalid && changePassForm.controls['password'].touched">
+                      <span *ngIf="changePassForm.controls['password'].errors?.['required']">Password is required</span>
+                      <span *ngIf="changePassForm.controls['password'].errors?.['minlength']">Password must be at least 6 characters</span>
+                    </small>
+                </div>
+                <div class="input-box">
+                    <i class="fa-solid fa-square-check"></i>
+                    <input type="password" formControlName="confirmPassword" placeholder="Confirm password">
+                  </div>
+                <div class="error">
+                    <small *ngIf="changePassForm.get('confirmPassword')?.touched && changePassForm.get('confirmPassword')?.value !== changePassForm.get('password')?.value">
+                        Passwords must be the same
+                    </small>                      
+                </div>
+
+              </div>
+              <button type="button" class="btn" [disabled]="loading" (click)="onChange()">Submit</button>
+            </div>
+          </form>
+        
+      </div>
+    </div>
+  
+    <div class="alert success" *ngIf="formSubmitted && isSuccess">
+      Password has been change successfully !!!
+    </div>
+
+    <div class="alert fail" *ngIf="formSubmitted && !isSuccess">
+      Fail to change password !!!
+    </div>  
+  
+  </div>
+  

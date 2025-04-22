@@ -1,0 +1,164 @@
+<div class="modal-backdrop" *ngIf="isOpen">
+    <div class="modal">
+      <article class="modal-container">
+        <header class="modal-container-header">
+          <h5 class="modal-container-title">
+            {{titleHeader}}
+          </h5>
+        </header>
+  
+        <section class="modal-container-body rtf">
+  
+          <!-- Section 1: Invite to Group -->
+          <ng-container *ngIf="modalView === 1">
+            <!-- Search Input -->
+            <input
+              type="text"
+              placeholder="Search..."
+              [(ngModel)]="searchTermGroup"
+              class="friends-searchbar"
+            />
+  
+            <!-- Show only filtered -->
+            <ng-container *ngFor="let room of filteredChatRooms; let i = index">
+              <div
+                class="left-section friends"
+                [class.active]="selecteds.includes(room._id)"
+                (click)="toggleSelection(room._id)"
+              >
+                <div class="checkbox-wrapper-15">
+                  <input
+                    class="inp-cbx"
+                    [id]="'cbx-15-' + i"
+                    type="checkbox"
+                    [checked]="selecteds.includes(room._id)"
+                    style="display: none;"
+                  />
+                  <label class="cbx" [for]="'cbx-15-' + i">
+                    <span>
+                      <svg width="12px" height="9px" viewBox="0 0 12 9">
+                        <polyline points="1 5 4 8 11 1"></polyline>
+                      </svg>
+                    </span>
+                  </label>
+                </div>
+  
+                <div class="photo" [style.backgroundImage]="'url(' + room.image + ')'">
+                </div>
+                <div class="desc-contact">
+                  <p class="name">{{ room.chatRoomName }}</p>
+                </div>
+              </div>
+            </ng-container>
+  
+            <!-- Optional: No matches -->
+            <div class="no-results" *ngIf="searchTermGroup && filteredChatRooms.length === 0">
+              No groups found.
+            </div>
+          </ng-container>
+  
+          <!-- Section 2: Add Chatted Users -->
+          <ng-container *ngIf="modalView === 2">
+            <!-- Search Input -->
+            <input
+              type="text"
+              placeholder="Search..."
+              [(ngModel)]="searchTerm"
+              class="friends-searchbar"
+            />
+  
+            <!-- Show only filtered -->
+            <ng-container *ngFor="let user of filteredUsers; let i = index">
+              <div
+                class="left-section friends"
+                [class.active]="selecteds.includes(user._id)"
+                (click)="toggleSelection(user._id)"
+              >
+                <div class="checkbox-wrapper-15">
+                  <input
+                    class="inp-cbx"
+                    [id]="'cbx-15-' + i"
+                    type="checkbox"
+                    [checked]="selecteds.includes(user._id)"
+                    style="display: none;"
+                  />
+                  <label class="cbx" [for]="'cbx-15-' + i">
+                    <span>
+                      <svg width="12px" height="9px" viewBox="0 0 12 9">
+                        <polyline points="1 5 4 8 11 1"></polyline>
+                      </svg>
+                    </span>
+                  </label>
+                </div>
+  
+                <div class="photo" [style.backgroundImage]="'url(' + user.avatarUrl + ')'">
+                </div>
+                <div class="desc-contact">
+                  <p class="name">{{ user.name }}</p>
+                </div>
+              </div>
+            </ng-container>
+  
+            <!-- Optional: No matches -->
+            <div class="no-results" *ngIf="searchTerm && filteredUsers.length === 0">
+              No users found.
+            </div>
+          </ng-container>
+  
+          <!-- Section 3: Current Members -->
+          <ng-container *ngIf="modalView === 3">
+            <!-- Search Input -->
+            <input
+              type="text"
+              placeholder="Search..."
+              [(ngModel)]="searchMember"
+              class="friends-searchbar"
+            />
+  
+            <!-- Show only filtered -->
+            <ng-container *ngFor="let user of filteredMembers; let i = index">
+              <div
+                class="left-section friends"
+                [class.active]="selecteds.includes(user._id)"
+                (click)="toggleSelection(user._id)"
+              >
+                <div class="checkbox-wrapper-15">
+                  <input
+                    class="inp-cbx"
+                    [id]="'cbx-15-' + i"
+                    type="checkbox"
+                    [checked]="selecteds.includes(user._id)"
+                    style="display: none;"
+                  />
+                  <label class="cbx" [for]="'cbx-15-' + i">
+                    <span>
+                      <svg width="12px" height="9px" viewBox="0 0 12 9">
+                        <polyline points="1 5 4 8 11 1"></polyline>
+                      </svg>
+                    </span>
+                  </label>
+                </div>
+  
+                <div class="photo" [style.backgroundImage]="'url(' + user.avatarUrl + ')'">
+                </div>
+                <div class="desc-contact">
+                  <p class="name">{{ user.name }}</p>
+                </div>
+              </div>
+            </ng-container>
+  
+            <!-- Optional: No matches -->
+            <div class="no-results" *ngIf="searchTermGroup && filteredMembers.length === 0">
+              No users found.
+            </div>
+          </ng-container>
+        </section>
+  
+        <footer class="modal-container-footer">
+          <button class="button is-ghost" (click)="close()">Cancel</button>
+          <button class="button is-primary" (click)="chooseAction()">Choose</button>
+        </footer>
+      </article>
+    </div>
+  </div>
+  

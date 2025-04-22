@@ -1,0 +1,146 @@
+/* Google Font Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+.parent {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #79B3E2;
+  padding: 30px;
+}
+i {
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+    display: inline-block;
+  }
+  
+.container {
+  position: relative;
+  width: 30%;
+  background: #fff;
+  padding: 40px 30px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  perspective: 2700px;
+  border-radius: 5px;
+}
+.container .form-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.form-content .title {
+  position: relative;
+  font-size: 24px;
+  font-weight: 500;
+  color: #333;
+}
+.form-content .title:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 25px;
+  background: #79B3E2;
+}
+
+.form-content .input-boxes {
+  margin-top: 15px;
+}
+.form-content .input-box {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  margin: 7px 0;
+  position: relative;
+}
+.form-content .input-box input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 0 30px;
+  font-size: 16px;
+  font-weight: 500;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.form-content .input-box input:focus,
+.form-content .input-box input:valid {
+  border-color: #79B3E2;
+}
+.form-content .input-box i {
+  position: absolute;
+  color: #79B3E2;
+  font-size: 17px;
+}
+.form-content .text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+.error{
+  color: #ee2a2a;
+  margin-left: 5px;
+}
+.box-container{
+  display: flex;
+  flex-direction: column;
+}
+.form-content .btn {
+  color: #fff;
+  background: #79B3E2;
+  border-radius: 6px;
+  margin-top: 20px;
+  padding: 10px 50px ;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  width: 100%;
+  text-align: center;
+}
+.form-content .btn:hover {
+  background: #4883bd;
+}
+.form-content label {
+  color: #4883bd;
+  cursor: pointer;
+}
+.form-content label:hover {
+  text-decoration: underline;
+}
+
+.overlay-spinner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+::ng-deep .custom-spinner svg {
+  stroke: white !important;
+}
+.modal-dialog{
+  background-color: #fff;
+}
+
+@media (max-width: 730px) {
+  .form-content {
+    width: 100%;
+  }
+}

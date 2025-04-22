@@ -1,0 +1,33 @@
+<nav class="menu">
+  <ul class="items">
+    <li class="avatar" (click)="onNavigate(0)">
+      <!-- <div class="photo" [style.backgroundImage]="'url(' + user.avatarUrl || defaultAvatarUrl + ')'"> -->
+        <div class="photo" [style.backgroundImage]="'url(' + defaultAvatarUrl + ')'">
+      </div>
+    </li>
+
+    <li 
+      class="item" 
+      [ngClass]="{ 'item-active': activeIndex === 1 }"
+      (click)="onNavigate(1)"
+    >
+      <i class="fa fa-commenting" aria-hidden="true"></i>
+    </li>
+
+    <li 
+      class="item" 
+      [ngClass]="{ 'item-active': activeIndex === 2 }"
+      (click)="onNavigate(2)"
+    >
+      <i class="fa-solid fa-user-group" aria-hidden="true"></i>
+    </li>
+
+    <li 
+      class="item logout" 
+      [ngClass]="{ 'item-active': activeIndex === 3 }"
+      (click)="onNavigate(3)"
+    >
+      <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+    </li>
+  </ul>
+</nav>

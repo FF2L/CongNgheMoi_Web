@@ -1,0 +1,173 @@
+
+<body>
+  <div class="row">
+      <div class="header">
+        <div class="search">
+            <div class="searchbar">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                <input type="text" placeholder="Search..."/>
+              </div>
+              
+            <button class="add-friend" (click)="toggleModal()">
+              <i class="fa-solid fa-user-plus create clickable"></i></button>
+            <app-modal [isOpen]="showModal" (closeModal)="toggleModal()" title="Add Friend"></app-modal>
+        </div>
+        <div class="header-chat">
+          <p>{{ tabTitles[selectedTab] }}</p>
+            <i class="icon clickable fa fa-ellipsis-h right" aria-hidden="true"></i>
+          </div>
+    </div>
+    <section class="Left-section">
+      <div class="left-section" [ngClass]="{ 'active': selectedTab === 0 }"  (click)="onSelectTab(0)">
+        <p> Friends list</p>
+      </div>
+      <div class="left-section" [ngClass]="{ 'active': selectedTab === 1 }" (click)="onSelectTab(1)">
+        <p> Group list</p>
+      </div>
+      <div class="left-section" [ngClass]="{ 'active': selectedTab === 2 }" (click)="onSelectTab(2)">
+        <p>Requests</p>
+      </div>
+    </section>
+    
+    <section class="Right-section">
+      <div *ngIf="selectedTab === 0">
+        <!-- Search Input -->
+        <input
+        type="text"
+        placeholder="Search..."
+        [(ngModel)]="searchTerm"
+        class="friends-searchbar"
+        />
+
+        <!-- Optional: only show this if you're *not* using dropdown-style search -->
+        <h6 class="friend-count">Friends ({{ filteredFriends.length }})</h6>
+
+        <!-- Show only filtered friends -->
+        <ng-container *ngFor="let friend of filteredFriends">
+          <div 
+            class="left-section friends d-flex justify-content-between align-items-center" 
+            [class.active]="selectedFriend?._id === friend._id"
+            (click)="selectFriend(friend)"
+          >
+            <div class="d-flex align-items-center w-100">
+              <div 
+                class="photo" 
+                [style.backgroundImage]="'url(' + friend.avatarUrl + ')'"
+              >
+                <!-- <div class="online" *ngIf="friend.online === true"></div> -->
+              </div>
+              <div class="desc-contact">
+                <div class="username">
+                  <p class="name mb-0">{{ friend.name }}</p>
+                </div>
+              </div>
+            </div>
+            <i 
+              class="icon clickable fa-solid fa-square-xmark right ms-2" 
+              aria-hidden="true" 
+              (click)="unFriend(friend._id); $event.stopPropagation();"
+            ></i>
+          </div>
+        </ng-container>
+        
+        
+
+        <!-- Optional: No matches -->
+        <div class="no-results" *ngIf="searchTerm && filteredFriends.length === 0">
+        No friends found.
+        </div>
+
+      </div>
+    
+      <div *ngIf="selectedTab === 1">
+
+        <input
+        type="text"
+        placeholder="Search..."
+        [(ngModel)]="searchTermGroup"
+        class="friends-searchbar"
+        />
+
+        <h6 class="friend-count">Groups ({{ filteredGroups.length }})</h6>
+
+        <ng-container *ngFor="let group of filteredGroups">
+          <div 
+            class="left-section friends">
+            
+            <div class="photo" [style.backgroundImage]="'url(' + group.image || defaulGrouptAvatarUrl  + ')'">
+            </div>
+            <div class="desc-contact">
+              <div class="username">
+                <p class="name">{{ group.chatRoomName }}</p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        
+        <div class="no-results" *ngIf="searchTermGroup && filteredGroups.length === 0">
+        No groups found.
+        </div>
+      </div>
+    
+      <div *ngIf="selectedTab === 2">
+        <!-- Requests content here -->
+        <div class="request-container">
+          <ng-container *ngFor="let receivedRequest of friendRequests">
+            <div class="card mb-3">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="photo me-3"
+                    [style.backgroundImage]="'url(' + (receivedRequest.avatarUrl || defaultAvatarUrl) + ')'"
+                    style="width: 50px; height: 50px; background-size: cover; border-radius: 50%;">
+                  </div>
+                  <div>
+                    <h5 class="card-title mb-1">Friend request from {{ receivedRequest?.name }}</h5>
+                    <p class="text-muted mb-2">{{ receivedRequest?.createdAt }}</p>
+                  </div>
+
+                </div>
+                <div class="d-flex gap-2 mt-3">
+                  <button class="btn btn-outline-danger btn-sm" *ngIf="receivedRequest && receivedRequest._id" (click)="requestResponse('0', receivedRequest._id)">Decline</button>
+                  <button class="btn btn-outline-success btn-sm" (click)="acceptRequest(receivedRequest._id)">Accept</button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          
+
+          <ng-container *ngFor="let sentRequest of sentRequests ">
+            <div class="card mb-3">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="photo me-3"
+                       [style.backgroundImage]="'url(' + (sentRequest.avatarUrl || defaultAvatarUrl) + ')'"
+                       style="width: 50px; height: 50px; background-size: cover; border-radius: 50%;">
+                  </div>
+                  <div>
+                    <h5 class="card-title mb-1">
+                      Sent request to {{ sentRequest?.name }}
+                    </h5>
+                    <p class="text-muted mb-2">{{ sentRequest?.createdAt }}</p>
+                  </div>
+                </div>
+                <div class="d-flex gap-2 mt-3">
+                  <button class="btn btn-outline-danger btn-sm" *ngIf="sentRequest && sentRequest._id" (click)="requestResponse('0', sentRequest._id)">Cancel</button>
+                  <button disabled class="btn btn-outline-success btn-sm">Pending</button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          
+        </div>
+      </div>
+    </section>
+    
+      
+    </div>
+  </body>
+  <app-modal-profile 
+    [isOpen]="showProfileModal"
+    [user]="selectedFriend"
+    (closeModal)="toggleProfileModal()"
+    title="Profile">
+  </app-modal-profile>

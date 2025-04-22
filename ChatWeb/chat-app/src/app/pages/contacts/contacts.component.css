@@ -1,0 +1,81 @@
+.left-section p {
+    margin: 0 25px;
+    font-weight: 600;
+}
+.Left-section .left-section {
+    height:65px;
+    justify-content: start;
+    &.active{
+        background-color: #dee2e6;
+        border-bottom: solid 1px #E0E0E0;
+    }
+}
+.friends{
+    display: flex;
+    align-items: center;
+    padding: 18px;
+    margin: 0 10px;
+    flex-direction: row;
+    border-top: 2px solid #ccc;
+    background-color: #fff;
+}
+
+.header-chat{
+    justify-content: space-between;
+    padding: 0 50px;
+    p{
+        margin:0;
+        font-weight: 600;
+        font-size: 14pt;
+    }
+}
+.friend-count{
+    margin:20px 28px;
+}
+.desc-contact{
+    display: flex;
+    align-items: center;
+    width:100%;
+}
+
+  .left-section.chat-conversation {
+    display: flex;
+    padding: 9.5px;
+    cursor: pointer;
+    border-bottom: 1px solid #d7d6d6;
+    .username{
+      margin-left: 15px;
+    }
+    &:last-child{
+      border-bottom: none;
+    }
+  }
+  
+  .left-section.chat-conversation:hover {
+    background-color: #f0f0f0;
+  }
+
+  .friends-searchbar{
+    border: none;
+    border-radius: 30px;
+    width: 40%;
+    padding: 10px 25px;
+    margin: 25px 25px 15px;
+  }
+
+  .request-container {
+    margin-top: 15px;
+    max-height: 83vh; /* or whatever height fits your layout */
+    overflow-y: auto;
+    overflow-x: hidden; /* optional, hides horizontal scroll if not needed */
+  }
+  
+
+ .fa-square-xmark{
+    color: #8a8a8a;
+    cursor: pointer;
+    &:hover{
+      color: #737373;
+    }
+  }
+  

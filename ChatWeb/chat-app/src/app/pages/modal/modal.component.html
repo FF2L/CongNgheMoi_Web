@@ -1,0 +1,92 @@
+<div class="modal-backdrop" *ngIf="isOpen">
+  <div class="modal">
+    <article class="modal-container">
+      <header class="modal-container-header">
+        <h5 class="modal-container-title">          
+          <!-- Tabs -->
+          <div class="modal-tabs">
+            <button [class.active]="activeTab === 'friend'" (click)="setTab('friend')">Add Friend</button>
+            <button [class.active]="activeTab === 'group'" (click)="setTab('group')">Create Group</button>
+          </div>
+        </h5>
+      </header>
+
+
+      <section class="modal-container-body rtf">
+        <ng-container *ngIf="activeTab === 'friend'">
+          <input type="text" class="email-searching" placeholder="Search friend's email" [(ngModel)]="searchTerm"/>
+        </ng-container>
+
+        <ng-container *ngIf="activeTab === 'group'">
+          <div class="d-flex flex-row align-items-center gap-2 p-2">
+            <i class="fa-solid fa-camera-retro"></i>
+            <input type="text" class="group-name" placeholder="Group name" [(ngModel)]="groupName" />
+          </div>
+          <!-- Search Input -->
+            <input
+            type="text"
+            placeholder="Search..."
+            [(ngModel)]="searchTerm"
+            class="friends-searchbar"
+            />
+
+            <!-- Show only filtered friends -->
+            <ng-container *ngFor="let friend of filteredFriends; let i = index">
+              <div 
+                class="left-section friends" 
+                [class.active]="selectedFriends.includes(friend._id)"
+                (click)="toggleFriendSelection(friend._id)">
+            
+                <div class="checkbox-wrapper-15">
+                  <input 
+                    class="inp-cbx" 
+                    [id]="'cbx-15-' + i" 
+                    type="checkbox" 
+                    [checked]="selectedFriends.includes(friend._id)"
+                    style="display: none;" />
+            
+                  <label class="cbx" [for]="'cbx-15-' + i">
+                    <span>
+                      <svg width="12px" height="9px" viewBox="0 0 12 9">
+                        <polyline points="1 5 4 8 11 1"></polyline>
+                      </svg>
+                    </span>
+                  </label>
+                </div>
+            
+                <div class="photo" [style.backgroundImage]="'url(' + friend.avatarUrl + ')'">
+                  <!-- <div class="online" *ngIf="friend.online"></div> -->
+                </div>
+                <div class="desc-contact">
+                  <p class="name">{{ friend.name }}</p>
+                </div>
+              </div>
+            </ng-container>
+            
+
+            <!-- Optional: No matches -->
+            <div class="no-results" *ngIf="searchTerm && filteredFriends.length === 0">
+            No friends found.
+            </div>
+
+        </ng-container>
+      </section>
+
+      <footer class="modal-container-footer">
+        <button class="button is-ghost" (click)="close()">Cancel</button>
+        <button class="button is-primary" (click)="activeTab === 'friend' ? onSearchFriend() : createGroup(selectedFriends)">
+          {{ activeTab === 'friend' ? 'Search' : 'Create Group' }}
+        </button>
+        
+      </footer>
+    </article>
+  </div>
+  <app-modal-profile
+    *ngIf="showProfileModal"
+    [isOpen]="showProfileModal"
+    [user]="foundUser"
+    (closeModal)="toggleProfileModal()"
+    title="Profile">
+  </app-modal-profile>
+
+</div>

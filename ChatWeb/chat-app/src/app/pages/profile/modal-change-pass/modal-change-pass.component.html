@@ -1,0 +1,59 @@
+<div class="modal-backdrop" *ngIf="isOpen">
+  <div class="modal">
+    <article class="modal-container">
+      <header class="modal-container-header">
+        <h5 class="modal-container-title">          
+          Change password
+        </h5>
+      </header>
+
+      <div class="parent">
+        <div div class="form-content">
+          <form (ngSubmit)="onChange()" [formGroup]="changeNewPassForm">
+            <div class="input-boxes">
+              <div class="box-container">
+                <div class="input-box">
+                    <i class="fa-solid fa-lock"></i>
+                  <input type="password" formControlName="password" placeholder="Enter your new password">
+                </div>
+                <div class="error">
+                    <small *ngIf="changeNewPassForm.controls['password'].invalid && changeNewPassForm.controls['password'].touched">
+                      <span *ngIf="changeNewPassForm.controls['password'].errors?.['required']">Password is required</span>
+                      <span *ngIf="changeNewPassForm.controls['password'].errors?.['minlength']">Password must be at least 6 characters</span>
+                    </small>
+                </div>
+                <div class="input-box">
+                    <i class="fa-solid fa-square-check"></i>
+                    <input type="password" formControlName="confirmPassword" placeholder="Confirm password">
+                  </div>
+                <div class="error">
+                    <small *ngIf="changeNewPassForm.get('confirmPassword')?.touched && changeNewPassForm.get('confirmPassword')?.value !== changeNewPassForm.get('password')?.value">
+                        Passwords must be the same
+                    </small>                      
+                </div>
+
+              </div>
+            </div>
+          </form>
+        
+      </div>
+      
+        <div class="alert success" *ngIf="formSubmitted && isSuccess">
+          Password has been change successfully !!!
+        </div>
+
+        <div class="alert fail" *ngIf="formSubmitted && !isSuccess">
+          Fail to change password !!!
+        </div>  
+      
+      </div>
+
+      <footer class="modal-container-footer">
+        <button class="button is-ghost" (click)="close()">Cancel</button>
+        <button class="button is-primary" (click)="onChange()">
+          Submit
+        </button>
+      </footer>
+    </article>
+  </div>
+</div>
